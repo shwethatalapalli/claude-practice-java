@@ -36,19 +36,19 @@ class TaskStoreTest {
     @Test
     void addTaskRejectsNullTitle() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> store.addTask(null));
-        assertEquals("Title is required", e.getMessage());
+        assertEquals("Add Title", e.getMessage());
     }
 
     @Test
     void addTaskRejectsEmptyTitle() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> store.addTask(""));
-        assertEquals("Title is required", e.getMessage());
+        assertEquals("Add Title", e.getMessage());
     }
 
     @Test
     void addTaskRejectsBlankTitle() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> store.addTask("   "));
-        assertEquals("Title is required", e.getMessage());
+        assertEquals("Add Title", e.getMessage());
         assertEquals(0, store.listTasks().size());
     }
 
