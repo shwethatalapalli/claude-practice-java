@@ -10,7 +10,10 @@ public class TaskStore {
     private int nextId = 1;
 
     public Task addTask(String title) {
-        Task task = new Task(nextId++, title);
+        if (title == null || title.trim().isEmpty()) {
+            throw new IllegalArgumentException("Title is required");
+        }
+        Task task = new Task(nextId++, title.trim());
         tasks.add(task);
         return task;
     }
