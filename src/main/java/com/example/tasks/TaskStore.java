@@ -11,7 +11,7 @@ public class TaskStore {
 
     public Task addTask(String title) {
         if (title == null || title.trim().isEmpty()) {
-            throw new IllegalArgumentException("Title is required");
+            throw new IllegalArgumentException("Add Title");
         }
         Task task = new Task(nextId++, title.trim());
         tasks.add(task);
