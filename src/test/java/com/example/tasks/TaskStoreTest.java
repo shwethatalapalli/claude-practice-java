@@ -34,6 +34,38 @@ class TaskStoreTest {
     }
 
     @Test
+    void addTaskRejectsNullTitle() {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> store.addTask(null));
+        assertEquals("Title is required", e.getMessage());
+    }
+
+    @Test
+    void addTaskRejectsEmptyTitle() {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> store.addTask(""));
+        assertEquals("Title is required", e.getMessage());
+    }
+
+    @Test
+    void addTaskRejectsBlankTitle() {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> store.addTask("   "));
+        assertEquals("Title is required", e.getMessage());
+        assertEquals(0, store.listTasks().size());
+    }
+
+    @Test
+    void addTaskStoresTrimmedTitle() {
+        Task task = store.addTask("  Pay bills  ");
+        assertEquals("Pay bills", task.getTitle());
+    }
+
+    @Test
+    void rejectedAddTaskDoesNotConsumeId() {
+        assertThrows(IllegalArgumentException.class, () -> store.addTask("  "));
+        Task task = store.addTask("Valid");
+        assertEquals(1, task.getId());
+    }
+
+    @Test
     void listTasksReturnsUnmodifiableCopy() {
         store.addTask("Only");
         List<Task> listed = store.listTasks();
